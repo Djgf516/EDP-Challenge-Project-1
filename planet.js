@@ -7,6 +7,7 @@ let terrainSpan;
 let gravitySpan
 let orbitalPeriodSpan;
 let populationSpan;
+let charactersSpan;
 let filmsDiv;
 let planetDiv;
 const baseUrl = `https://swapi2.azurewebsites.net/api`;
@@ -22,7 +23,7 @@ addEventListener('DOMContentLoaded', () => {
   gravitySpan = document.querySelector('span#gravity');
   orbitalPeriodSpan = document.querySelector('span#orbital_period');
   populationSpan = document.querySelector('span#population');
-  homeworldSpan = document.querySelector('span#homeworld');
+  charactersSpan = document.querySelector('span#characters');
   filmsUl = document.querySelector('#films>ul');
   const sp = new URLSearchParams(window.location.search)
   const id = sp.get('id')
@@ -49,7 +50,7 @@ async function fetchPlanet(id) {
 }
 
 async function fetchCharacter(planet) {
-  const url = `${baseUrl}/planets/${planet}/characters`;
+  const url = `${baseUrl}/planets/${planet?.id}/characters`;
   const character = await fetch(url)
     .then(res => res.json())
   return planet;
@@ -73,7 +74,7 @@ const renderPlanet = planet => {
   gravitySpan.textContent = planet?.gravity;
   orbitalPeriodSpan.textContent = planet?.orbital_period;
   populationSpan.textContent = planet?.population;
-  homeworldSpan.innerHTML = `<a href="/planet.html?id=${planet?.homeworld.id}">${planet?.homeworld.name}</a>`;
+  charactersSpan.innerHTML = `<a href="/character.html?id=${planet?.id}">${planet?.name}</a>`;
   const filmsLis = planet?.films?.map(film => `<li><a href="/film.html?id=${film.id}">${film.title}</li>`)
   filmsUl.innerHTML = filmsLis.join("");
 }
