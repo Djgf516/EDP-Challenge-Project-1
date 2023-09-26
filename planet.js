@@ -65,9 +65,14 @@ async function fetchFilms(planet) {
 const renderPlanet = planet => {
   document.title = `SWAPI - ${planet?.name}`;  // Just to make the browser tab say their name
   nameH1.textContent = planet?.name;
+  climateSpan.textContent = planet?.climate;
   diameterSpan.textContent = planet?.diameter;
   surfaceWaterSpan.textContent = planet?.surface_water;
-  climateSpan.textContent = planet?.climate;
+  rotationPeriodSpan.textContent = planet?.rotation_period;
+  terrainSpan.textContent = planet?.terrain;
+  gravitySpan.textContent = planet?.gravity;
+  orbitalPeriodSpan.textContent = planet?.orbital_period;
+  populationSpan.textContent = planet?.population;
   homeworldSpan.innerHTML = `<a href="/planet.html?id=${planet?.homeworld.id}">${planet?.homeworld.name}</a>`;
   const filmsLis = planet?.films?.map(film => `<li><a href="/film.html?id=${film.id}">${film.title}</li>`)
   filmsUl.innerHTML = filmsLis.join("");
