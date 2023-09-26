@@ -21,15 +21,15 @@ addEventListener('DOMContentLoaded', () => {
     filmsUl = document.querySelector('#films>ul');
     const sp = new URLSearchParams(window.location.search)
     const id = sp.get('id')
-    getCharacter(id)
+    getFilm(id)
   });
   
-  async function getCharacter(id) {
-    let character;
+  async function getFilm(id) {
+    let film;
     try {
-      character = await fetchCharacter(id)
-      character.homeworld = await fetchHomeworld(character)
-      character.films = await fetchFilms(character)
+      film = await fetchCharacter(id)
+      film.planets = await fetchPlanets(film)
+      film.characters = await fetchCharacters(film)
     }
     catch (ex) {
       console.error(`Error reading character ${id} data.`, ex.message);
@@ -43,14 +43,14 @@ addEventListener('DOMContentLoaded', () => {
       .then(res => res.json())
   }
   
-  async function fetchHomeworld(character) {
+  async function fetchPlanets(character) {
     const url = `${baseUrl}/planets/${character?.homeworld}`;
     const planet = await fetch(url)
       .then(res => res.json())
     return planet;
   }
   
-  async function fetchFilms(character) {
+  async function fetchCharacters(character) {
     const url = `${baseUrl}/characters/${character?.id}/films`;
     const films = await fetch(url)
       .then(res => res.json())
