@@ -43,15 +43,15 @@ async function fetchPlanet(id) {
     .then(res => res.json())
 }
 
-async function fetchHomeworld(character) {
-  const url = `${baseUrl}/planets/${character?.homeworld}`;
+async function fetchCharacter(planet) {
+  const url = `${baseUrl}/planets/${planet}/characters`;
   const planet = await fetch(url)
     .then(res => res.json())
   return planet;
 }
 
-async function fetchFilms(character) {
-  const url = `${baseUrl}/characters/${character?.id}/films`;
+async function fetchFilms(planet) {
+  const url = `${baseUrl}/characters/${planet?.id}/films`;
   const films = await fetch(url)
     .then(res => res.json())
   return films;
