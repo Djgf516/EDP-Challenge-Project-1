@@ -1,7 +1,7 @@
 let nameH1;
-let birthYearSpan;
-let heightSpan;
-let massSpan;
+let climateSpan;
+let diameterSpan;
+let surfaceWaterSpan;
 let filmsDiv;
 let planetDiv;
 const baseUrl = `https://swapi2.azurewebsites.net/api`;
@@ -9,17 +9,22 @@ const baseUrl = `https://swapi2.azurewebsites.net/api`;
 // Runs on page load
 addEventListener('DOMContentLoaded', () => {
   nameH1 = document.querySelector('h1#name');
-  birthYearSpan = document.querySelector('span#birth_year');
-  massSpan = document.querySelector('span#mass');
-  heightSpan = document.querySelector('span#height');
+  climateSpan = document.querySelector('span#climate');
+  surfaceWaterSpan = document.querySelector('span#surface_water');
+  diameterSpan = document.querySelector('span#diameter');
+  rotationPeriodSpan = document.querySelector('span#rotation_period');
+  terrainSpan = document.querySelector('span#terrain');
+  gravitySpan = document.querySelector('span#gravity');
+  orbitalPeriodSpan = document.querySelector('span#orbital_period');
+  populationSpan = document.querySelector('span#population');
   homeworldSpan = document.querySelector('span#homeworld');
   filmsUl = document.querySelector('#films>ul');
   const sp = new URLSearchParams(window.location.search)
   const id = sp.get('id')
-  getPlanets(id)
+  getPlanet(id)
 });
 
-async function getPlanets(id) {
+async function getPlanet(id) {
   let planet;
   try {
     planet = await fetchPlanet(id)
@@ -52,13 +57,13 @@ async function fetchFilms(character) {
   return films;
 }
 
-const renderCharacter = character => {
-  document.title = `SWAPI - ${character?.name}`;  // Just to make the browser tab say their name
-  nameH1.textContent = character?.name;
-  heightSpan.textContent = character?.height;
-  massSpan.textContent = character?.mass;
-  birthYearSpan.textContent = character?.birth_year;
-  homeworldSpan.innerHTML = `<a href="/planet.html?id=${character?.homeworld.id}">${character?.homeworld.name}</a>`;
-  const filmsLis = character?.films?.map(film => `<li><a href="/film.html?id=${film.id}">${film.title}</li>`)
+const renderCharacter = planet => {
+  document.title = `SWAPI - ${planet?.name}`;  // Just to make the browser tab say their name
+  nameH1.textContent = planet?.name;
+  diameterSpan.textContent = planet?.height;
+  surfaceWaterSpan.textContent = planet?.mass;
+  climateSpan.textContent = planet?.birth_year;
+  homeworldSpan.innerHTML = `<a href="/planet.html?id=${planet?.homeworld.id}">${planet?.homeworld.name}</a>`;
+  const filmsLis = planet?.films?.map(film => `<li><a href="/film.html?id=${film.id}">${film.title}</li>`)
   filmsUl.innerHTML = filmsLis.join("");
 }
